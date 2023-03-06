@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 
-public class JavaFXTemplate extends Application {
+public class mainApp extends Application {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
