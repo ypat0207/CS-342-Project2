@@ -1,15 +1,18 @@
 import javafx.application.Application;
 
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ComboBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 
 import javafx.scene.image.Image;
@@ -17,6 +20,10 @@ import javafx.scene.image.ImageView;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+
+import java.io.FileInputStream;
+import java.io.InputStream;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
@@ -43,6 +50,7 @@ public class mainApp extends Application {
     private ImageView logoImgView;
     private kenoGame game;
     private betCard card;
+    private BorderPane startScreenPane;
     private EventHandler<ActionEvent> GPHandler;
 
     public static void main(String[] args) {
@@ -70,8 +78,22 @@ public class mainApp extends Application {
 	primaryStage.setTitle("Keno");
 	
 	// Start scene
-	VBox vb1 = new VBox();
+	BorderPane borderPane = new BorderPane();
+	borderPane.setPrefSize(700, 700);
+	FileInputStream imageStream = new FileInputStream("/Users/yash/Desktop/CS-342-Project2/Keno/src/main/resource/images/keno.png");
+	Image image = new Image(imageStream);
+	ImageView imageView = new ImageView(image);
+	imageView.setFitHeight(200);
+	imageView.setFitWidth(200);
+	borderPane.setCenter(imageView);
+	FileInputStream background = new FileInputStream("/Users/yash/Desktop/CS-342-Project2/Keno/src/main/resource/images/bluemoon.png");
+	Image image2 = new Image(background);
+	ImagePattern pattern = new ImagePattern(image2);
+
+	VBox vb1 = new VBox(borderPane);
+	
 	Scene startScene = new Scene(vb1, 700, 700);
+	startScene.setFill(pattern);
 	
 	// Rules scene
 	Scene rulesScene;
