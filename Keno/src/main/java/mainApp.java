@@ -88,6 +88,9 @@ public class mainApp extends Application {
     private void changeLook() {
 	// TODO
     }
+    private void addGrid(GridPane addGrid) {
+    	// TODO 
+      }
 
     private GridPane addGrid() {
 	// TODO 
@@ -313,7 +316,7 @@ public class mainApp extends Application {
             BackgroundPosition.CENTER,
             new BackgroundSize(1.0, 1.0, true, true, false, false))));
 
-	
+	// Testing
 	
 	StackPane sceneTwoStackPane = new StackPane();
 	HBox hbox = new HBox();
