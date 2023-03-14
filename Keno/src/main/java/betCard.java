@@ -7,8 +7,8 @@
 import java.util.ArrayList;
 
 public class betCard {
-    private int numSpots;
-    private int numDraws;
+    public int numSpots;
+    public int numDraws;
     private ArrayList<Integer> chosenSpots;
 
     public betCard() {

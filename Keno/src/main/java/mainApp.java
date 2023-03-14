@@ -2,14 +2,17 @@ import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -64,6 +67,11 @@ public class mainApp extends Application {
     private betCard card;
     private BorderPane startScreenPane;
     private EventHandler<ActionEvent> GPHandler;
+    private Integer valueOfSpots;
+    private Integer valueOfDrawings;
+    public Integer buttonPressCounter = 0;
+    
+    betCard betOne = new betCard();
 
     public static void main(String[] args) {
 	launch(args);
@@ -111,9 +119,10 @@ public class mainApp extends Application {
     					+ "    -fx-text-fill: #311c09;\n"
     					+ "    -fx-effect: innershadow( three-pass-box , rgba(10,20,50,0.1) , 2, 0.0 , 0 , 1); -fx-font-weight: bold;");
     			button.setOnAction(new EventHandler<ActionEvent>() {
+    				
     		        @Override
     		        public void handle(ActionEvent event) {
-    		        	
+    		        		
     		        		button.setDisable(true);
     		        		button.setStyle("-fx-background-color: \n"
     		    					+ "        #800000	,\n"
@@ -128,15 +137,17 @@ public class mainApp extends Application {
     		    					+ "    -fx-font-size: 14px;\n"
     		    					+ "    -fx-text-fill: #311c09;\n"
     		    					+ "    -fx-effect: innershadow( three-pass-box , rgba(10,20,50,0.1) , 2, 0.0 , 0 , 1);-fx-font: bold 16px 'Arial';");
-    		        	
+    		        		
+    		        		
     		        }
+    		        
     		    });
     			
     		}
     	}
     	return grid;
     }
-
+    
     @Override
     public void start(Stage primaryStage) throws Exception {
 	primaryStage.setTitle("Keno");
@@ -208,29 +219,34 @@ public class mainApp extends Application {
 	GridPane grid2 = addGrid();
 	grid2.setAlignment(Pos.CENTER);
 	
-	Button button = button();
 	
-	ComboBox<String> numberOfSpotsCombo = new ComboBox<String>();
+	ComboBox<Integer> numberOfSpotsCombo = new ComboBox<Integer>();
 	numberOfSpotsCombo.setPromptText("Number Of Spots");
-	List<String> numberOfSpotsCombolist = numberOfSpotsCombo.getItems();
-	numberOfSpotsCombolist.add("1");
-	numberOfSpotsCombolist.add("4");
-	numberOfSpotsCombolist.add("8");
-	numberOfSpotsCombolist.add("10");
+	List<Integer> numberOfSpotsCombolist = numberOfSpotsCombo.getItems();
+	numberOfSpotsCombolist.add(1);
+	numberOfSpotsCombolist.add(4);
+	numberOfSpotsCombolist.add(8);
+	numberOfSpotsCombolist.add(10);
 	numberOfSpotsCombo.setStyle("-fx-background-color: gold; -fx-color: gold;");
 	
-
+	numberOfSpotsCombo.setOnAction(e-> { 
+		 valueOfSpots = numberOfSpotsCombo.getSelectionModel().getSelectedItem();
+		 betOne.setNumSpots(valueOfSpots);
+	});
 	
-	ComboBox<String> numberOfDrawingsCombo = new ComboBox<String>();
+	ComboBox<Integer> numberOfDrawingsCombo = new ComboBox<Integer>();
 	numberOfDrawingsCombo.setPromptText("Number Of Drawings");
-	List<String> list = numberOfDrawingsCombo.getItems();
-	list.add("1");
-	list.add("2");
-	list.add("3");
-	list.add("4");
+	List<Integer> list = numberOfDrawingsCombo.getItems();
+	list.add(1);
+	list.add(2);
+	list.add(3);
+	list.add(4);
 	numberOfDrawingsCombo.setStyle("-fx-background-color: gold; -fx-color: gold;");
 	
-	
+	numberOfDrawingsCombo.setOnAction(e-> { 
+		 valueOfDrawings = numberOfDrawingsCombo.getSelectionModel().getSelectedItem();
+		 betOne.setNumDraws(valueOfDrawings);
+	});
 
 
 	
@@ -366,6 +382,7 @@ public class mainApp extends Application {
 			+ "    -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.1) , 2, 0.0 , 0 , 1);");
 	
 	StackPane endSceneStackPane = new StackPane();
+	StackPane endSceneImagePane = new StackPane();
 	HBox hbox2 = new HBox();
 	hbox2.setPadding(new Insets(0, 10, 20, 10));
 	
@@ -380,18 +397,48 @@ public class mainApp extends Application {
 	hbox2.getChildren().addAll(playAgain,region1, region2, exit);
 	endSceneStackPane.getChildren().add(hbox2);
 	endSceneBorderPane.setBottom(endSceneStackPane);
+	
+	
+	FileInputStream endSceneBackground = new FileInputStream("/Users/yash/Desktop/CS-342-Project2/Keno/src/main/resource/images/1540818_fa9b6.gif");
+	Image endSceneImage = new Image(endSceneBackground);
+	ImageView endSceneImageView = new ImageView();
+	endSceneImageView.setFitWidth(1000);
+	endSceneImageView.setFitHeight(700);
+	endSceneImageView.setImage(endSceneImage);
 	endSceneBorderPane.setBackground(new Background(new BackgroundImage(scene2Image,BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,
             BackgroundPosition.CENTER,
             new BackgroundSize(1.0, 1.0, true, true, false, false))));
+	endSceneImagePane.getChildren().addAll(endSceneImageView);
+	Label drawingsCompleteLabel = new Label("Drawings Complete");
+	drawingsCompleteLabel.setPadding(new Insets(0, 10, 180, 10));
+	Label moneyWonLabel = new Label("Money Won");
+	moneyWonLabel.setPadding(new Insets(0, 10, 180, 0));
+	drawingsCompleteLabel.setStyle("-fx-font-family: Calligraffitti; -fx-font-weight: 500;"
+			+ "-fx-font-size: 70px;-fx-text-fill: #CD853F;\n"
+			+ "-fx-effect: dropshadow(gaussian, #FFD700		\n"
+			+ ", 2, 5, 2, 1);");
+	moneyWonLabel.setStyle("-fx-font-family: Calligraffitti; -fx-font-weight: 500;"
+			+ "-fx-font-size: 70px;-fx-text-fill: #CD853F;\n"
+			+ "-fx-effect: dropshadow(gaussian, #FFD700		\n"
+			+ ", 2, 5, 2, 1);");
+	VBox endSceneVbox = new VBox();
+	endSceneVbox.setAlignment(Pos.CENTER);	
+	endSceneVbox.setPadding(new Insets(0, 10, 0, 0));
+	endSceneVbox.getChildren().addAll(drawingsCompleteLabel,moneyWonLabel);
+	endSceneBorderPane.setCenter(endSceneVbox);
+	
+	
+
+	
 	VBox vb4 = new VBox(endSceneBorderPane);
 	Scene endScene = new Scene(vb4, 1000, 700);
-
 	startDraw.setOnAction(new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
         		primaryStage.setScene(endScene);
-        		
-        		
+
+        		exit.setText(betOne.numSpots + "");
+        		playAgain.setText(betOne.numDraws + "");
         		
         	
         }
@@ -427,9 +474,6 @@ public class mainApp extends Application {
 		
 	}
 
-	private Button button() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 }
