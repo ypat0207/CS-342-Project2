@@ -20,11 +20,23 @@ public class betCard {
     }
 
     // Getters and Setters for private variables
-    public void setNumSpots(int num) {numSpots = num;}
-    public int getNumSpots() {return numSpots;}
-    public void setNumDraws(int num) {numDraws = num;}
-    public int getNumDraws() {return numDraws;}
-    public void setChosenSpots(ArrayList<Integer> arr) {chosenSpots = arr;}
-    public ArrayList<Integer> getChosenSpots() {return chosenSpots;}
+    public void setNumSpots(int num) {
+    	numSpots = num;
+    }
+    public int getNumSpots() {
+    	return numSpots;
+    }
+    public void setNumDraws(int num) {
+    	numDraws = num;
+    }
+    public int getNumDraws() {
+    	return numDraws;
+    }
+    public void setChosenSpots(ArrayList<Integer> arr) {
+    	chosenSpots = arr;
+    }
+    public ArrayList<Integer> getChosenSpots() {
+    	return chosenSpots;
+    }
 
 }
