@@ -134,7 +134,12 @@ public class mainApp extends Application {
     public void start(Stage primaryStage) throws Exception {
 	primaryStage.setTitle("Keno");
 	
-	// Start scene
+	
+/************************************************************************************************************************************************************************************************************************************************************
+	 
+	 									 Scene 1
+	 
+************************************************************************************************************************************************************************************************************************************************************/
 	BorderPane borderPane = new BorderPane();
 	borderPane.setPrefSize(900, 900);
 	FileInputStream imageStream = new FileInputStream("src/main/resource/images/keno.png");
@@ -198,10 +203,16 @@ public class mainApp extends Application {
 
 
 	// Card scene
-	GridPane grid2 = addGrid();
-	grid2.setAlignment(Pos.CENTER);
+//	GridPane grid2 = addGrid();
+//	grid2.setAlignment(Pos.CENTER);
 	
 	
+	
+/************************************************************************************************************************************************************************************
+	
+                  							SCENE 2
+	
+************************************************************************************************************************************************************************/
 	ComboBox<Integer> numberOfSpotsCombo = new ComboBox<Integer>();
 	numberOfSpotsCombo.setPromptText("Number Of Spots");
 	List<Integer> numberOfSpotsCombolist = numberOfSpotsCombo.getItems();
@@ -337,10 +348,22 @@ public class mainApp extends Application {
     });
 	
 	
-
-	// Game scene
+/************************************************************************************************************************************************************************************************************************************************************
+	
+	  												Scene 3
+	 
+************************************************************************************************************************************************************************************************************************************************************/
 	VBox vb3 = new VBox();
 	Scene gameScene = new Scene(vb3, 700, 700);
+
+	
+	
+/************************************************************************************************************************************************************************************************************************************************************
+	
+													Scene 4
+
+************************************************************************************************************************************************************************************************************************************************************/
+	
 
 	// End scene
 	BorderPane endSceneBorderPane = new BorderPane();
@@ -430,10 +453,9 @@ public class mainApp extends Application {
 	startDraw.setOnAction(new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
+ 
         		primaryStage.setScene(endScene);
 
-        		exit.setText(betOne.numSpots + "");
-        		playAgain.setText(betOne.numDraws + "");
         		
         	
         }
@@ -454,6 +476,7 @@ public class mainApp extends Application {
         		betOne.setNumDraws(0);
         		betOne.setNumSpots(0);
         		betOne.setChosenSpots(null);
+        		chooseRandom.setDisable(false);
         
         		primaryStage.setScene(cardScene);
         		
