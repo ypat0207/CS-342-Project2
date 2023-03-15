@@ -38,7 +38,9 @@ import javafx.geometry.Pos;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
@@ -64,12 +66,20 @@ public class mainApp extends Application {
     private Image logoImg;
     private ImageView logoImgView;
     private kenoGame game;
+    public Button button = new Button();
+    public Button button2 = new Button();
     private betCard card;
     private BorderPane startScreenPane;
     private EventHandler<ActionEvent> GPHandler;
     private Integer valueOfSpots;
     private Integer valueOfDrawings;
     public Integer buttonPressCounter = 0;
+    public GridPane grid = new GridPane();
+    public Boolean numberCheck;
+    private Button chooseRandom;
+    public Boolean numberCheck2;
+     int manualGrid;
+	 int randomGrid;
     
      betCard betOne = new betCard();
 
@@ -88,47 +98,13 @@ public class mainApp extends Application {
     private void changeLook() {
 	// TODO
     }
-    private void addGrid(GridPane addGrid) {
-    	// TODO 
-      }
-
-    private GridPane addGrid() {
-	// TODO 
+    private void addGrid(GridPane grid) {
+ 
     	
-    	GridPane grid = new GridPane();
-    	grid.setPadding(new Insets(10));
-    	grid.setHgap(1);
-    	grid.setVgap(2);
-    	for(int row = 1; row <= 10; row++) {
-    		for(int col = 0; col < 8; col++) {
-    			Button button = new Button();
-    		
-    			
-    			button.setPrefHeight(35);
-    			button.setPrefWidth(35);
-    			button.setPrefSize(80, 50);
-    			grid.setConstraints(button, row, col);
-                grid.getChildren().add(button);
-    			button.setShape(new Rectangle(60, 60));
-    			button.setStyle("-fx-background-color: \n"
-    					+ "        #800000	,\n"
-    					+ "        rgba(10,0,0,0.05),\n"
-    					+ "        linear-gradient(#cca30e, #cca30e),\n"
-    					+ "        linear-gradient(#CD853F 200%, #f4e5bc 80%, #e6c75d 20%, #cca30e 40%),\n"
-    					+ "        linear-gradient(#e0bb34, #e6c34d);\n"
-    					+ "    -fx-background-insets: 0,9 9 8 9,9,1,3;\n"
-    					+ "    -fx-background-radius: 0;\n"
-    					+ "    -fx-padding: 15 30 15 30;\n"
-    					+ "    -fx-font-family: \"Helvetica\";\n"
-    					+ "    -fx-font-size: 14px;\n"
-    					+ "    -fx-text-fill: #311c09;\n"
-    					+ "    -fx-effect: innershadow( three-pass-box , rgba(10,20,50,0.1) , 2, 0.0 , 0 , 1); -fx-font-weight: bold;");
-    		
-    			
-    		}
-    	}
-    	return grid;
     }
+
+
+
     
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -222,10 +198,23 @@ public class mainApp extends Application {
 	numberOfSpotsCombolist.add(10);
 	numberOfSpotsCombo.setStyle("-fx-background-color: gold; -fx-color: gold;");
 	
+
 	numberOfSpotsCombo.setOnAction(e-> { 
 		 valueOfSpots = numberOfSpotsCombo.getSelectionModel().getSelectedItem();
 		 betOne.setNumSpots(valueOfSpots);
+		 numberCheck = true;
+		 if((valueOfDrawings != null) && (valueOfSpots != null)) {
+			 chooseRandom.setDisable(false);
+			 betOne.manualGrid();
+			
+			 
+			 
+		 }
+		 
 	});
+	
+
+	
 	
 	ComboBox<Integer> numberOfDrawingsCombo = new ComboBox<Integer>();
 	numberOfDrawingsCombo.setPromptText("Number Of Drawings");
@@ -239,6 +228,15 @@ public class mainApp extends Application {
 	numberOfDrawingsCombo.setOnAction(e-> { 
 		 valueOfDrawings = numberOfDrawingsCombo.getSelectionModel().getSelectedItem();
 		 betOne.setNumDraws(valueOfDrawings);
+		 if((valueOfDrawings != null) && (valueOfSpots != null)) {
+			 chooseRandom.setDisable(false);
+			 betOne.manualGrid();
+			 
+			
+			 
+		 }
+		 
+		 
 	});
 
 
@@ -259,7 +257,8 @@ public class mainApp extends Application {
 	
 	VBox comboBoxVBox = new VBox(hb1Scene2,hb1Scene22);
 	
-	Button chooseRandom = new Button("Choose Random");
+	chooseRandom = new Button("Choose Random");
+	chooseRandom.setDisable(true);
 	chooseRandom.setPrefSize(300, 75);
 	chooseRandom.setStyle("-fx-background-color: \n"
 			+ "        #ecebe9,\n"
@@ -273,15 +272,11 @@ public class mainApp extends Application {
 			+ "    -fx-font-family: \"Helvetica\";\n"
 			+ "    -fx-font-size: 18px;\n"
 			+ "    -fx-text-fill: #311c09;\n"
-			+ "    -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.1) , 2, 0.0 , 0 , 1);");
+			+ "    -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.1) , 2, 0.0 , 0 , 1);"
+			+ "-fx-font: bold 24px 'Arial';");
 	
 	
-	
-	chooseRandom.setOnAction(e -> {
-		betOne.chooseRandom();
-		chooseRandom.setDisable(true);
-		
-	});
+	//chooseRandom.setStyle("-fx-text-fill: gold;-fx-font: bold 16px 'Arial';");
 	
 	
 	
@@ -301,12 +296,19 @@ public class mainApp extends Application {
 			+ "    -fx-font-family: \"Helvetica\";\n"
 			+ "    -fx-font-size: 18px;\n"
 			+ "    -fx-text-fill: #311c09;\n"
-			+ "    -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.1) , 2, 0.0 , 0 , 1);");
+			+ "    -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.1) , 2, 0.0 , 0 , 1);"
+			+ "-fx-font: bold 24px 'Arial';");
 	
 	
 	
 	BorderPane borderPaneScene2 = new BorderPane();
 	borderPaneScene2.setPrefSize(900, 900);
+	chooseRandom.setOnAction(e -> {
+		betOne.chooseRandom();
+		chooseRandom.setDisable(true);
+		borderPaneScene2.setCenter(betOne.grid2);
+		
+	});
 	borderPaneScene2.setCenter(betOne.grid);
 	borderPaneScene2.setTop(comboBoxVBox);
 	FileInputStream scene2Background = new FileInputStream("/Users/yash/Desktop/CS-342-Project2/Keno/src/main/resource/images/casino.jpeg");
@@ -473,9 +475,12 @@ public class mainApp extends Application {
 	playAgain.setOnAction(new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
+        		numberOfSpotsCombo.setValue(null);
+        		numberOfDrawingsCombo.setValue(null);
         		betOne.setNumDraws(0);
         		betOne.setNumSpots(0);
         		betOne.setChosenSpots(null);
+        		
         		chooseRandom.setDisable(false);
         
         		primaryStage.setScene(cardScene);
