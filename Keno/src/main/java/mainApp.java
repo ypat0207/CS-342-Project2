@@ -71,7 +71,7 @@ public class mainApp extends Application {
     private Integer valueOfDrawings;
     public Integer buttonPressCounter = 0;
     
-    betCard betOne = new betCard();
+     betCard betOne = new betCard();
 
     public static void main(String[] args) {
 	launch(args);
@@ -99,9 +99,11 @@ public class mainApp extends Application {
     	grid.setPadding(new Insets(10));
     	grid.setHgap(1);
     	grid.setVgap(2);
-    	for(int row = 0; row < 10; row++) {
+    	for(int row = 1; row <= 10; row++) {
     		for(int col = 0; col < 8; col++) {
-    			Button button = new Button("" + (row + 1 + col * 10));
+    			Button button = new Button();
+    		
+    			
     			button.setPrefHeight(35);
     			button.setPrefWidth(35);
     			button.setPrefSize(80, 50);
@@ -121,30 +123,7 @@ public class mainApp extends Application {
     					+ "    -fx-font-size: 14px;\n"
     					+ "    -fx-text-fill: #311c09;\n"
     					+ "    -fx-effect: innershadow( three-pass-box , rgba(10,20,50,0.1) , 2, 0.0 , 0 , 1); -fx-font-weight: bold;");
-    			button.setOnAction(new EventHandler<ActionEvent>() {
-    				
-    		        @Override
-    		        public void handle(ActionEvent event) {
-    		        		
-    		        		button.setDisable(true);
-    		        		button.setStyle("-fx-background-color: \n"
-    		    					+ "        #800000	,\n"
-    		    					+ "        rgba(10,0,0,0.05),\n"
-    		    					+ "        linear-gradient(#cca30e, #cca30e),\n"
-    		    					+ "        linear-gradient(#CD853F 200%, #f4e5bc 80%, #e6c75d 20%, #cca30e 40%),\n"
-    		    					+ "        linear-gradient(#e0bb34, #e6c34d);\n"
-    		    					+ "    -fx-background-insets: 0,9 9 8 9,9,1,3;\n"
-    		    					+ "    -fx-background-radius: 0;\n"
-    		    					+ "    -fx-padding: 15 30 15 30;\n"
-    		    					+ "    -fx-font-family: \"Helvetica\";\n"
-    		    					+ "    -fx-font-size: 14px;\n"
-    		    					+ "    -fx-text-fill: #311c09;\n"
-    		    					+ "    -fx-effect: innershadow( three-pass-box , rgba(10,20,50,0.1) , 2, 0.0 , 0 , 1);-fx-font: bold 16px 'Arial';");
-    		        		
-    		        		
-    		        }
-    		        
-    		    });
+    		
     			
     		}
     	}
@@ -284,6 +263,19 @@ public class mainApp extends Application {
 			+ "    -fx-font-size: 18px;\n"
 			+ "    -fx-text-fill: #311c09;\n"
 			+ "    -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.1) , 2, 0.0 , 0 , 1);");
+	
+	
+	
+	chooseRandom.setOnAction(e -> {
+		betOne.chooseRandom();
+		chooseRandom.setDisable(true);
+		
+	});
+	
+	
+	
+	
+	
 	Button startDraw = new Button("Start Draw");
 	startDraw.setPrefSize(300, 75);
 	startDraw.setStyle("-fx-background-color: \n"
@@ -304,7 +296,7 @@ public class mainApp extends Application {
 	
 	BorderPane borderPaneScene2 = new BorderPane();
 	borderPaneScene2.setPrefSize(900, 900);
-	borderPaneScene2.setCenter(grid2);
+	borderPaneScene2.setCenter(betOne.grid);
 	borderPaneScene2.setTop(comboBoxVBox);
 	FileInputStream scene2Background = new FileInputStream("/Users/yash/Desktop/CS-342-Project2/Keno/src/main/resource/images/casino.jpeg");
 	Image scene2Image = new Image(scene2Background);
@@ -333,7 +325,7 @@ public class mainApp extends Application {
 	hbox.getChildren().addAll(chooseRandom,growRegionSceneTwo, growRegionSceneTwoTwo, startDraw);
 	sceneTwoStackPane.getChildren().add(hbox);
 	borderPaneScene2.setBottom(sceneTwoStackPane);
-	
+	//borderPaneScene2.setCenter(betOne.grid);
 	VBox vb2 = new VBox(borderPaneScene2);
 	Scene cardScene = new Scene(vb2, 1000, 700);
 	play.setOnAction(new EventHandler<ActionEvent>() {
@@ -459,10 +451,10 @@ public class mainApp extends Application {
 	playAgain.setOnAction(new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
-        	numberOfSpotsCombo.setPromptText("Number Of Spots:");
-    		numberOfDrawingsCombo.setPromptText("Number Of Drawings:");
-        		numberOfSpotsCombo.getSelectionModel().clearSelection();
-        		numberOfDrawingsCombo.getSelectionModel().clearSelection();
+        		betOne.setNumDraws(0);
+        		betOne.setNumSpots(0);
+        		betOne.setChosenSpots(null);
+        
         		primaryStage.setScene(cardScene);
         		
         		
