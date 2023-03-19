@@ -68,8 +68,6 @@ public class mainApp extends Application {
     private Image logoImg;
     private ImageView logoImgView;
     private kenoGame game;
-    public Button button = new Button();
-    public Button button2 = new Button();
     private betCard card = new betCard();
     private EventHandler<ActionEvent> GPHandler;
     private Integer valueOfSpots;
@@ -80,7 +78,6 @@ public class mainApp extends Application {
     private BorderPane startScreenPane;
     private BorderPane borderPaneScene2;
     private BorderPane endSceneBorderPane;
-    public Button resetGrid;
 
    
     
@@ -119,11 +116,7 @@ public class mainApp extends Application {
     	
     }
 
-  
-  
 
-
-    
     @Override
     public void start(Stage primaryStage) throws Exception {
 	primaryStage.setTitle("Keno");
@@ -196,190 +189,19 @@ public class mainApp extends Application {
 	Scene oddsScene;
 
 
-	// Card scene
-//	GridPane grid2 = addGrid();
-//	grid2.setAlignment(Pos.CENTER);
-	
-	
 	
 /************************************************************************************************************************************************************************************
 	
                   							SCENE 2
 	
 ************************************************************************************************************************************************************************/
-	ComboBox<Integer> spotsBox = new ComboBox<Integer>();
-	spotsBox.setPrefSize(160, 25);
-	spotsBox.setPromptText("Number Of Spots");
-	List<Integer> numberOfSpotsCombolist = spotsBox.getItems();
-	numberOfSpotsCombolist.add(1);
-	numberOfSpotsCombolist.add(4);
-	numberOfSpotsCombolist.add(8);
-	numberOfSpotsCombolist.add(10);
-	spotsBox.setStyle("-fx-background-color: gold; -fx-color: gold;");
-	
-
-	spotsBox.setOnAction(e-> { 
-		 valueOfSpots = spotsBox.getSelectionModel().getSelectedItem();
-		 card.setNumSpots(valueOfSpots);
-		 if((valueOfDrawings != null) && (valueOfSpots != null)) {
-			 chooseRandomButton.setDisable(false);
-			// card.manualGrid();
-			
-			 
-			 
-		 }
-		 
-	});
-	
 
 	
 	
-	ComboBox<Integer> drawsBox = new ComboBox<Integer>();
-	drawsBox.setPrefSize(160, 25);
-	drawsBox.setPromptText("Number Of Drawings");
-	List<Integer> list = drawsBox.getItems();
-	list.add(1);
-	list.add(2);
-	list.add(3);
-	list.add(4);
-	drawsBox.setStyle("-fx-background-color: gold; -fx-color: gold;");
-	
-	drawsBox.setOnAction(e-> { 
-		 valueOfDrawings = drawsBox.getSelectionModel().getSelectedItem();
-		 card.setNumDraws(valueOfDrawings);
-		 if((valueOfDrawings != null) && (valueOfSpots != null)) {
-			 chooseRandomButton.setDisable(false);
-			 //card.manualGrid();
-			 
-			
-			 
-		 }
-		 
-		 
-	});
-
-
-	Button resetGrid = new Button("Reset Grid");
-	resetGrid.setDisable(false);
-	resetGrid.setStyle("-fx-background-color: gold");
-	resetGrid.setPrefSize(160, 25);
-	numberOfSpots = new Label(" Number Of Spots:         \n");
-	numberOfSpots.setStyle("-fx-text-fill: gold;-fx-font: bold 16px 'Arial'; ");
-	HBox hb1Scene2 = new HBox();
-	HBox resetBox = new HBox();
-	resetBox.setPadding(new Insets(25, 10, 10, 632));
-	resetBox.getChildren().add(resetGrid);
-	hb1Scene2.setPadding(new Insets(25, 10, 10, 250));
-	hb1Scene2.getChildren().addAll(numberOfSpots,spotsBox);
-	hb1Scene2.setAlignment(Pos.CENTER);
-	
-	numberOfDrawings = new Label(" Number Of Drawings:   \n");
-	numberOfDrawings.setStyle("-fx-text-fill: gold;-fx-font: bold 16px 'Arial';");
-	HBox hb1Scene22 = new HBox();
-	hb1Scene22.setPadding(new Insets(10, 10, 10, 250));
-	hb1Scene22.setAlignment(Pos.CENTER);
-	hb1Scene22.getChildren().addAll(numberOfDrawings,drawsBox);
-	
-	VBox comboBoxVBox = new VBox(hb1Scene2,hb1Scene22,resetBox);
-	
-	
-	chooseRandomButton = new Button("Choose Random");
-	chooseRandomButton.setDisable(true);
-	chooseRandomButton.setPrefSize(300, 75);
-	chooseRandomButton.setStyle("-fx-background-color: \n"
-			+ "        #ecebe9,\n"
-			+ "        rgba(0,0,0,0.05),\n"
-			+ "        linear-gradient(#cca30e, #cca30e),\n"
-			+ "        linear-gradient(#CD853F 100%, #f4e5bc 80%, #e6c75d 20%, #cca30e 40%),\n"
-			+ "        linear-gradient(#e0bb34, #e6c34d);\n"
-			+ "    -fx-background-insets: 0,9 9 8 9,9,0,6;\n"
-			+ "    -fx-background-radius: 50;\n"
-			+ "    -fx-padding: 15 30 15 30;\n"
-			+ "    -fx-font-family: \"Helvetica\";\n"
-			+ "    -fx-font-size: 18px;\n"
-			+ "    -fx-text-fill: #311c09;\n"
-			+ "    -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.1) , 2, 0.0 , 0 , 1);"
-			+ "-fx-font: bold 24px 'Arial';");
-	
-	
-	//chooseRandom.setStyle("-fx-text-fill: gold;-fx-font: bold 16px 'Arial';");
 	
 	
 	
 	
-	
-	startDrawButton = new Button("Start Draw");
-	
-	startDrawButton.setPrefSize(300, 75);
-	
-	startDrawButton.setStyle("-fx-background-color: \n"
-			+ "        #ecebe9,\n"
-			+ "        rgba(0,0,0,0.05),\n"
-			+ "        linear-gradient(#cca30e, #cca30e),\n"
-			+ "        linear-gradient(#CD853F 100%, #f4e5bc 80%, #e6c75d 20%, #cca30e 40%),\n"
-			+ "        linear-gradient(#e0bb34, #e6c34d);\n"
-			+ "    -fx-background-insets: 0,9 9 8 9,9,0,6;\n"
-			+ "    -fx-background-radius: 50;\n"
-			+ "    -fx-padding: 15 30 15 30;\n"
-			+ "    -fx-font-family: \"Helvetica\";\n"
-			+ "    -fx-font-size: 18px;\n"
-			+ "    -fx-text-fill: #311c09;\n"
-			+ "    -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.1) , 2, 0.0 , 0 , 1);"
-			+ "-fx-font: bold 24px 'Arial';");
-	
-	
-	
-	borderPaneScene2 = new BorderPane();
-	borderPaneScene2.setPrefSize(900, 900);
-	chooseRandomButton.setOnAction(e -> {
-		card.chooseRandom();
-		chooseRandomButton.setDisable(true);
-		//borderPaneScene2.setCenter(card.grid2);
-		
-	});
-	//borderPaneScene2.setCenter(card.grid);
-	borderPaneScene2.setTop(comboBoxVBox);
-	FileInputStream scene2Background = new FileInputStream("/Users/yash/Desktop/CS-342-Project2/Keno/src/main/resource/images/casino.jpeg");
-	Image scene2Image = new Image(scene2Background);
-	ImageView scene2ImageView = new ImageView();
-	scene2ImageView.setImage(scene2Image);
-	ImagePattern pattern2 = new ImagePattern(scene2Image);
-	startScene.setFill(pattern2);
-	borderPaneScene2.setBackground(new Background(new BackgroundImage(scene2Image,BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,
-            BackgroundPosition.CENTER,
-            new BackgroundSize(1.0, 1.0, true, true, false, false))));
-
-	// Testing
-	
-	StackPane sceneTwoStackPane = new StackPane();
-	HBox hbox = new HBox();
-	hbox.setPadding(new Insets(20, 10, 20, 10));
-	
-	HBox.setHgrow(chooseRandomButton, Priority.ALWAYS);
-	HBox.setHgrow(startDrawButton, Priority.ALWAYS);
-	Region growRegionSceneTwo = new Region();
-	Region growRegionSceneTwoTwo = new Region();
-	HBox.setHgrow(growRegionSceneTwo, Priority.SOMETIMES);
-	HBox.setHgrow(growRegionSceneTwoTwo, Priority.SOMETIMES);
-	StackPane.setAlignment(growRegionSceneTwo, Pos.CENTER_LEFT);
-	StackPane.setAlignment(growRegionSceneTwoTwo, Pos.CENTER_RIGHT);
-	hbox.getChildren().addAll(chooseRandomButton,growRegionSceneTwo, growRegionSceneTwoTwo, startDrawButton);
-	sceneTwoStackPane.getChildren().add(hbox);
-	borderPaneScene2.setBottom(sceneTwoStackPane);
-	//borderPaneScene2.setCenter(betOne.grid);
-	VBox vb2 = new VBox(borderPaneScene2);
-	Scene cardScene = new Scene(vb2, 1000, 700);
-	playButton.setOnAction(new EventHandler<ActionEvent>() {
-        @Override
-        public void handle(ActionEvent event) {
-        		primaryStage.setScene(cardScene);
-        	
-        }
-    });
-	
-	resetGrid.setOnAction(reset -> {
-		changeLook();
-	});
 	
 
 /************************************************************************************************************************************************************************************************************************************************************
@@ -387,6 +209,8 @@ public class mainApp extends Application {
 	  												Scene 3
 	 
 ************************************************************************************************************************************************************************************************************************************************************/
+	
+	
 	VBox vb3 = new VBox();
 	Scene gameScene = new Scene(vb3, 700, 700);
 
@@ -398,8 +222,6 @@ public class mainApp extends Application {
 
 ************************************************************************************************************************************************************************************************************************************************************/
 	
-
-	// End scene
 	endSceneBorderPane = new BorderPane();
 	endSceneBorderPane.setPrefSize(900, 900);
 	Button playAgain = new Button("Play Again");
@@ -454,6 +276,10 @@ public class mainApp extends Application {
 	FileInputStream endSceneBackground = new FileInputStream("/Users/yash/Desktop/CS-342-Project2/Keno/src/main/resource/images/1540818_fa9b6.gif");
 	Image endSceneImage = new Image(endSceneBackground);
 	ImageView endSceneImageView = new ImageView();
+	FileInputStream scene2Background = new FileInputStream("/Users/yash/Desktop/CS-342-Project2/Keno/src/main/resource/images/casino.jpeg");
+	Image scene2Image = new Image(scene2Background);
+	ImageView scene2ImageView = new ImageView();
+	scene2ImageView.setImage(scene2Image);
 	endSceneImageView.setFitWidth(1000);
 	endSceneImageView.setFitHeight(700);
 	endSceneImageView.setImage(endSceneImage);
@@ -509,14 +335,7 @@ public class mainApp extends Application {
         public void handle(ActionEvent event) {
         		spotsBox.setValue(0);
         		drawsBox.setValue(0);
-//        		card.grid.setDisable(true);
-//        		card.grid2.setDisable(true);
-        		chooseRandomButton.setDisable(true);
-        		
-        		//card.chosenSpots.clear();
-        		//card.button.setDisable(false);
-        		//card.resetGrid();
-        		primaryStage.setScene(cardScene);
+        		primaryStage.setScene(startScene);
         		
         		
         		
