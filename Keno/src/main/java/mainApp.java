@@ -189,6 +189,11 @@ public class mainApp extends Application {
 	Scene oddsScene;
 
 
+	// Card scene
+//	GridPane grid2 = addGrid();
+//	grid2.setAlignment(Pos.CENTER);
+	
+	
 	
 /************************************************************************************************************************************************************************************
 	
@@ -196,11 +201,6 @@ public class mainApp extends Application {
 	
 ************************************************************************************************************************************************************************/
 
-	
-	
-	
-	
-	
 	
 	
 
@@ -273,20 +273,15 @@ public class mainApp extends Application {
 	endSceneBorderPane.setBottom(endSceneStackPane);
 	
 	
-	FileInputStream endSceneBackground = new FileInputStream("/Users/yash/Desktop/CS-342-Project2/Keno/src/main/resource/images/1540818_fa9b6.gif");
-	Image endSceneImage = new Image(endSceneBackground);
-	ImageView endSceneImageView = new ImageView();
-	FileInputStream scene2Background = new FileInputStream("/Users/yash/Desktop/CS-342-Project2/Keno/src/main/resource/images/casino.jpeg");
+
+	FileInputStream scene2Background = new FileInputStream("src/main/resource/images/casino.jpeg");
 	Image scene2Image = new Image(scene2Background);
 	ImageView scene2ImageView = new ImageView();
 	scene2ImageView.setImage(scene2Image);
-	endSceneImageView.setFitWidth(1000);
-	endSceneImageView.setFitHeight(700);
-	endSceneImageView.setImage(endSceneImage);
 	endSceneBorderPane.setBackground(new Background(new BackgroundImage(scene2Image,BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,
             BackgroundPosition.CENTER,
             new BackgroundSize(1.0, 1.0, true, true, false, false))));
-	endSceneImagePane.getChildren().addAll(endSceneImageView);
+	//endSceneImagePane.getChildren().addAll(endSceneImageView);
 	Label drawingsCompleteLabel = new Label("Drawings Complete");
 	drawingsCompleteLabel.setPadding(new Insets(0, 10, 180, 10));
 	Label moneyWonLabel = new Label("Money Won");
@@ -310,16 +305,7 @@ public class mainApp extends Application {
 	
 	VBox vb4 = new VBox(endSceneBorderPane);
 	Scene endScene = new Scene(vb4, 1000, 700);
-	startDrawButton.setOnAction(new EventHandler<ActionEvent>() {
-        @Override
-        public void handle(ActionEvent event) {
-        	//exitButton.setText(card.chosenSpots + "");
-        		primaryStage.setScene(endScene);
 
-        		
-        	
-        }
-    });
 	exitButton.setOnAction(new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
@@ -343,8 +329,10 @@ public class mainApp extends Application {
         	
         }
     });
-	
-	
+	playButton.setOnAction(e-> {
+		primaryStage.setScene(endScene);
+	});
+
 
 	primaryStage.setScene(startScene);
 	primaryStage.show();
