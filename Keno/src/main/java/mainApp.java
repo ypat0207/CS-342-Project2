@@ -189,9 +189,7 @@ public class mainApp extends Application {
 	Scene oddsScene;
 
 
-	// Card scene
-//	GridPane grid2 = addGrid();
-//	grid2.setAlignment(Pos.CENTER);
+
 	
 	
 	
